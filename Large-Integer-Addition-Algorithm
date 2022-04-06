@@ -1,0 +1,117 @@
+/* README:
+ Algorithm for adding large numbers by using an array containing single integers
+ 
+ Example:
+ let arrayOfNumber1 = [9, 7, 7, 2, 2] // Number 1 = 97,722
+ let arrayOfNumber2 = [4, 3, 9, 2, 4] // Number 2 = 43,924
+ 
+ ..97,722
+ + 43,924
+ --------
+ .141,646
+ 
+ Output should equal [1, 4, 1, 6, 4, 6]
+ 
+ */
+
+
+
+func testCode(attempts: Int) {
+    
+    for _ in 0..<attempts {
+        
+        // Create random numbers between 1 and 7
+        let lengthOfNumber1 = Int.random(in: 1...7)
+        let lengthOfNumber2 = Int.random(in: 1...7)
+        
+        // Create an array of random single digit Ints for the random amount of numbers generated
+        let randomNumbersArray1 = (0...lengthOfNumber1).map( {_ in Int.random(in: 0...9)} )
+        let randomNumbersArray2 = (0...lengthOfNumber2).map( {_ in Int.random(in:  0...9)} )
+        
+        // Combine the random number arrays into a single Int to test if our calculate() function works
+        let number1 = Int(randomNumbersArray1.map(String.init).joined()) ?? 0
+        let number2 = Int(randomNumbersArray2.map(String.init).joined()) ?? 0
+        let sum = number1 + number2
+        
+        print("number1:", number1)
+        print("number2:", number2)
+        print("sum:", sum)
+        
+        // Run our function
+        let calculateValue = calculate(randomNumbersArray1, randomNumbersArray2)
+        print("calculate()", calculateValue)
+        
+        // Combine the array returned from calculate into a single Int to compare with our sum of random numbers
+        let numberCalculateValue = Int(calculateValue.map(String.init).joined()) ?? 0
+        
+        print("calculate() as Int", numberCalculateValue)
+        print("sum == calculate() as Int", sum == numberCalculateValue)
+    }
+    
+}
+
+
+
+
+// MARK: - Code:
+
+// Allows a Bool to be converted into `1` for true and `0` for false
+extension Bool {
+    var asInt: Int {
+        return self ? 1 : 0
+    }
+}
+
+// Not sure
+func returnAsShortAndLongArray<T>(_ array1: [T], _ array2: [T]) -> (shortArray: [T], longArray: [T]) {
+    guard array1.count <= array2.count else {
+        return (array2, array1)
+    }
+    return (array1, array2)
+}
+
+func calculate(_ array1: [Int], _ array2: [Int]) -> [Int] {
+    
+    // Prepare the arrays for calculation
+    let (shortArray, longArray) = returnAsShortAndLongArray(array1, array2)
+    
+    // Reverse arrays so that we are doing addition from right to left
+    let reversedShortArray: [Int] = shortArray.reversed()
+    let reversedLongArray: [Int] = longArray.reversed()
+    
+    var output: [Int] = []
+    var overflow: Bool = false
+    
+    for i in 0..<reversedLongArray.count { // Loop Start:
+        
+        var shortArrayValue = 0
+        let longArrayValue = reversedLongArray[i]
+        
+        if reversedShortArray.indices.contains(i) { // Update `shortArrayValue` if the index is within range
+            shortArrayValue = reversedShortArray[i]
+        }
+        
+        let sum = shortArrayValue + longArrayValue + overflow.asInt
+        if sum < 10 { // Append sum to output if sum is less than 10 and set overflow to 0
+            output.append(sum)
+            overflow = false
+        } else { // sum is 2 digits (Somwehere between: 10...19)
+            let valueToAdd = sum - 10 // Take the sum and subtract 10 to get the single digit value
+            overflow = true // set overflow to 1 to add to the sum on the next loop
+            output.append(valueToAdd)
+        }
+        
+    } // Loop End:
+    
+    // Make sure there's no remaining overflow, otherwise append it to the output
+    if overflow {
+        output.append(overflow.asInt)
+    }
+    
+    // Reverse again to make the array read in the correct direction
+    let finalValue: [Int] = output.reversed()
+    return finalValue
+}
+
+
+testCode(attempts: 7)
