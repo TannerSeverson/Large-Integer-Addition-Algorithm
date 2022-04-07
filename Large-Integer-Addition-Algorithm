@@ -62,7 +62,7 @@ extension Bool {
     }
 }
 
-// Not sure
+
 func returnAsShortAndLongArray<T>(_ array1: [T], _ array2: [T]) -> (shortArray: [T], longArray: [T]) {
     guard array1.count <= array2.count else {
         return (array2, array1)
