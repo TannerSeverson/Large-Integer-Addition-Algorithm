@@ -97,8 +97,8 @@ func calculate(_ array1: [Int], _ array2: [Int]) -> [Int] {
             overflow = false
         } else { // sum is 2 digits (Somwehere between: 10...19)
             let valueToAdd = sum - 10 // Take the sum and subtract 10 to get the single digit value
-            overflow = true // set overflow to true to add to the sum on the next loop
             output.append(valueToAdd)
+            overflow = true // set overflow to true to add to the sum on the next loop
         }
         
     } // Loop End:
