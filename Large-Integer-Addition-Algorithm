@@ -92,12 +92,12 @@ func calculate(_ array1: [Int], _ array2: [Int]) -> [Int] {
         }
         
         let sum = shortArrayValue + longArrayValue + overflow.asInt
-        if sum < 10 { // Append sum to output if sum is less than 10 and set overflow to 0
+        if sum < 10 { // Append sum to output if sum is less than 10 and set overflow to false
             output.append(sum)
             overflow = false
         } else { // sum is 2 digits (Somwehere between: 10...19)
             let valueToAdd = sum - 10 // Take the sum and subtract 10 to get the single digit value
-            overflow = true // set overflow to 1 to add to the sum on the next loop
+            overflow = true // set overflow to true to add to the sum on the next loop
             output.append(valueToAdd)
         }
         
