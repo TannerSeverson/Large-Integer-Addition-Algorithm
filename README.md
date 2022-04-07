@@ -1,6 +1,6 @@
 # Large-Integer-Addition-Algorithm
 
- Algorithm for adding large numbers by using an array containing single integers<br>
+ Algorithm for adding large numbers by using an array containing single digit integers<br>
  <br>
  Example:<br>
  let arrayOfLargeNumber1 = [9, 7, 7, 2, 2] // Number 1 = 97,722 <br>
