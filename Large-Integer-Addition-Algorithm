@@ -15,6 +15,8 @@
  */
 
 
+testCode(attempts: 7)
+
 
 func testCode(attempts: Int) {
     
@@ -108,10 +110,7 @@ func calculate(_ array1: [Int], _ array2: [Int]) -> [Int] {
         output.append(overflow.asInt)
     }
     
-    // Reverse again to make the array read in the correct direction
+    // Reverse our `output` to make the number read in the correct direction
     let finalValue: [Int] = output.reversed()
     return finalValue
 }
-
-
-testCode(attempts: 7)
