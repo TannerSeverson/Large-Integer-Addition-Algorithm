@@ -1,7 +1,5 @@
 # Large-Integer-Addition-Algorithm
 
-
-/* README:
  Algorithm for adding large numbers by using an array containing single integers
  
  Example:
@@ -15,4 +13,3 @@
  
  Output should equal [1, 4, 1, 6, 4, 6]
  
- */
