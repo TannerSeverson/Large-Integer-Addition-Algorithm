@@ -1,3 +1,5 @@
+import Foundation
+
 /* README:
  Algorithm for adding large numbers by using an array containing single integers
  
@@ -15,48 +17,6 @@
  */
 
 
-testCode(attempts: 7)
-
-
-func testCode(attempts: Int) {
-    
-    for _ in 0..<attempts {
-        
-        // Create random numbers between 1 and 7
-        let lengthOfNumber1 = Int.random(in: 1...7)
-        let lengthOfNumber2 = Int.random(in: 1...7)
-        
-        // Create an array of random single digit Ints for the random amount of numbers generated
-        let randomNumbersArray1 = (0...lengthOfNumber1).map( {_ in Int.random(in: 0...9)} )
-        let randomNumbersArray2 = (0...lengthOfNumber2).map( {_ in Int.random(in:  0...9)} )
-        
-        // Combine the random number arrays into a single Int to test if our calculate() function works
-        let number1 = Int(randomNumbersArray1.map(String.init).joined()) ?? 0
-        let number2 = Int(randomNumbersArray2.map(String.init).joined()) ?? 0
-        let sum = number1 + number2
-        
-        print("number1:", number1)
-        print("number2:", number2)
-        print("sum:", sum)
-        
-        // Run our function
-        let calculateValue = calculate(randomNumbersArray1, randomNumbersArray2)
-        print("calculate()", calculateValue)
-        
-        // Combine the array returned from calculate into a single Int to compare with our sum of random numbers
-        let numberCalculateValue = Int(calculateValue.map(String.init).joined()) ?? 0
-        
-        print("calculate() as Int", numberCalculateValue)
-        print("sum == calculate() as Int", sum == numberCalculateValue)
-    }
-    
-}
-
-
-
-
-// MARK: - Code:
-
 // Allows a Bool to be converted into `1` for true and `0` for false
 extension Bool {
     var asInt: Int {
@@ -66,7 +26,7 @@ extension Bool {
 
 
 func returnAsShortAndLongArray<T>(_ array1: [T], _ array2: [T]) -> (shortArray: [T], longArray: [T]) {
-    guard array1.count <= array2.count else { // guard that `array1` is shorter than `array2` 
+    guard array1.count <= array2.count else { // guard that `array1` is shorter than `array2`
         return (array2, array1)
     }
     return (array1, array2)
@@ -114,3 +74,43 @@ func calculate(_ array1: [Int], _ array2: [Int]) -> [Int] {
     let finalValue: [Int] = output.reversed()
     return finalValue
 }
+
+
+
+testCode(attempts: 7)
+
+
+func testCode(attempts: Int) {
+    
+    for _ in 0..<attempts {
+        
+        // Create random numbers between 1 and 7
+        let lengthOfNumber1 = Int.random(in: 1...7)
+        let lengthOfNumber2 = Int.random(in: 1...7)
+        
+        // Create an array of random single digit Ints for the random amount of numbers generated
+        let randomNumbersArray1 = (0...lengthOfNumber1).map( {_ in Int.random(in: 0...9)} )
+        let randomNumbersArray2 = (0...lengthOfNumber2).map( {_ in Int.random(in:  0...9)} )
+        
+        // Combine the random number arrays into a single Int to test if our calculate() function works
+        let number1 = Int(randomNumbersArray1.map(String.init).joined()) ?? 0
+        let number2 = Int(randomNumbersArray2.map(String.init).joined()) ?? 0
+        let sum = number1 + number2
+        
+        print("number1:", number1)
+        print("number2:", number2)
+        print("sum:", sum)
+        
+        // Run our function
+        let calculateValue = calculate(randomNumbersArray1, randomNumbersArray2)
+        print("calculate()", calculateValue)
+        
+        // Combine the array returned from calculate into a single Int to compare with our sum of random numbers
+        let numberCalculateValue = Int(calculateValue.map(String.init).joined()) ?? 0
+        
+        print("calculate() as Int", numberCalculateValue)
+        print("sum == calculate() as Int", sum == numberCalculateValue)
+    }
+    
+}
+
